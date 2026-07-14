@@ -1,8 +1,0 @@
-com\healthcare\insuranceservice\domain\Policy.class
-com\healthcare\insuranceservice\api\PolicyController$PolicyResponse.class
-com\healthcare\insuranceservice\application\PolicyService.class
-com\healthcare\insuranceservice\domain\PolicyRepository.class
-com\healthcare\insuranceservice\InsuranceServiceApplication.class
-com\healthcare\insuranceservice\api\PolicyController$PolicyRequest.class
-com\healthcare\insuranceservice\api\PolicyController.class
-com\healthcare\insuranceservice\api\ServiceInfoController.class

@@ -1,8 +1,0 @@
-com\healthcare\pharmacyservice\domain\Prescription.class
-com\healthcare\pharmacyservice\domain\PrescriptionRepository.class
-com\healthcare\pharmacyservice\api\PrescriptionController.class
-com\healthcare\pharmacyservice\PharmacyServiceApplication.class
-com\healthcare\pharmacyservice\api\PrescriptionController$PrescriptionResponse.class
-com\healthcare\pharmacyservice\api\ServiceInfoController.class
-com\healthcare\pharmacyservice\application\PrescriptionService.class
-com\healthcare\pharmacyservice\api\PrescriptionController$PrescriptionRequest.class

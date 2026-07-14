@@ -1,8 +1,0 @@
-com\healthcare\healthrecordservice\api\ServiceInfoController.class
-com\healthcare\healthrecordservice\api\HealthRecordController$HealthRecordRequest.class
-com\healthcare\healthrecordservice\api\HealthRecordController$HealthRecordResponse.class
-com\healthcare\healthrecordservice\HealthRecordServiceApplication.class
-com\healthcare\healthrecordservice\domain\HealthRecordRepository.class
-com\healthcare\healthrecordservice\application\HealthRecordService.class
-com\healthcare\healthrecordservice\domain\HealthRecord.class
-com\healthcare\healthrecordservice\api\HealthRecordController.class

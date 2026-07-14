@@ -1,8 +1,0 @@
-com\healthcare\authservice\api\ServiceInfoController.class
-com\healthcare\authservice\api\UserAccountController.class
-com\healthcare\authservice\api\UserAccountController$UserAccountRequest.class
-com\healthcare\authservice\domain\UserAccountRepository.class
-com\healthcare\authservice\application\UserAccountService.class
-com\healthcare\authservice\AuthServiceApplication.class
-com\healthcare\authservice\api\UserAccountController$UserAccountResponse.class
-com\healthcare\authservice\domain\UserAccount.class
