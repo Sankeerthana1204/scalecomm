@@ -23,10 +23,10 @@
 
 ## CQRS And Saga Notes
 
-- `PatientService` and `AppointmentService` use a simple CQRS-oriented split between command and query services.
+- `PatientService`, `AppointmentService`, `BillingService`, and `NotificationService` use a CQRS-oriented split between command and query services.
 - `AppointmentService -> BillingService -> NotificationService` is implemented as an event-driven workflow using RabbitMQ topics and queues.
-- `BillingService` consumes `appointment.booked` and issues invoices asynchronously.
-- `NotificationService` consumes domain events and materializes notification records for downstream delivery processing.
+- `BillingService` command side consumes `appointment.booked` and issues invoices asynchronously; query side serves invoice lookups.
+- `NotificationService` command side consumes domain events and materializes notification records; query side serves notification lookups.
 
 ## OpenAPI
 

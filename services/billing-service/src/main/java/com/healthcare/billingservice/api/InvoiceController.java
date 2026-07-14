@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.healthcare.billingservice.application.InvoiceService;
+import com.healthcare.billingservice.application.InvoiceCommandService;
+import com.healthcare.billingservice.application.InvoiceQueryService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -22,25 +23,27 @@ import jakarta.validation.Valid;
 @Tag(name = "Invoices")
 public class InvoiceController {
 
-    private final InvoiceService invoiceService;
+    private final InvoiceCommandService invoiceCommandService;
+    private final InvoiceQueryService invoiceQueryService;
 
-    public InvoiceController(InvoiceService invoiceService) {
-        this.invoiceService = invoiceService;
+    public InvoiceController(InvoiceCommandService invoiceCommandService, InvoiceQueryService invoiceQueryService) {
+        this.invoiceCommandService = invoiceCommandService;
+        this.invoiceQueryService = invoiceQueryService;
     }
 
     @PostMapping
     public ResponseEntity<InvoiceResponse> create(@Valid @RequestBody InvoiceRequest request) {
-        InvoiceResponse response = invoiceService.create(request);
+        InvoiceResponse response = invoiceCommandService.create(request);
         return ResponseEntity.created(URI.create("/api/v1/invoices/" + response.invoiceId())).body(response);
     }
 
     @GetMapping("/{invoiceId}")
     public InvoiceResponse getById(@PathVariable String invoiceId) {
-        return invoiceService.getById(invoiceId);
+        return invoiceQueryService.getById(invoiceId);
     }
 
     @GetMapping
     public List<InvoiceResponse> search(@RequestParam(required = false) String patientId) {
-        return invoiceService.search(patientId);
+        return invoiceQueryService.search(patientId);
     }
 }

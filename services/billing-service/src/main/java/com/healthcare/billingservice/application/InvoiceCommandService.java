@@ -1,7 +1,7 @@
 package com.healthcare.billingservice.application;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,12 +14,12 @@ import com.healthcare.billingservice.messaging.InvoiceEventPublisher;
 import com.healthcare.billingservice.messaging.dto.AppointmentBookedEvent;
 
 @Service
-public class InvoiceService {
+public class InvoiceCommandService {
 
     private final InvoiceRepository invoiceRepository;
     private final InvoiceEventPublisher invoiceEventPublisher;
 
-    public InvoiceService(InvoiceRepository invoiceRepository, InvoiceEventPublisher invoiceEventPublisher) {
+    public InvoiceCommandService(InvoiceRepository invoiceRepository, InvoiceEventPublisher invoiceEventPublisher) {
         this.invoiceRepository = invoiceRepository;
         this.invoiceEventPublisher = invoiceEventPublisher;
     }
@@ -31,25 +31,12 @@ public class InvoiceService {
         return InvoiceMapper.toResponse(invoice);
     }
 
-    @Transactional(readOnly = true)
-    public InvoiceResponse getById(String invoiceId) {
-        return invoiceRepository.findById(invoiceId).map(InvoiceMapper::toResponse).orElseThrow(() -> new InvoiceNotFoundException(invoiceId));
-    }
-
-    @Transactional(readOnly = true)
-    public List<InvoiceResponse> search(String patientId) {
-        if (patientId == null || patientId.isBlank()) {
-            return invoiceRepository.findAll().stream().map(InvoiceMapper::toResponse).toList();
-        }
-        return invoiceRepository.findByPatientId(patientId).stream().map(InvoiceMapper::toResponse).toList();
-    }
-
     @Transactional
     public void createFromAppointment(AppointmentBookedEvent event) {
         Invoice invoice = new Invoice();
         invoice.setPatientId(event.patientId());
         invoice.setAppointmentId(event.appointmentId());
-        invoice.setAmount(new java.math.BigDecimal("500.00"));
+        invoice.setAmount(new BigDecimal("500.00"));
         invoice.setCurrency("INR");
         invoice.setStatus("ISSUED");
         invoice.setIssuedAt(LocalDateTime.now());

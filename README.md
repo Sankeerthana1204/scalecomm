@@ -23,11 +23,11 @@ Implemented backend services:
 - `patient-service`: patient CRUD, OpenAPI, RabbitMQ event publishing, CQRS-style command/query split
 - `appointment-service`: appointment CRUD, OpenAPI, RabbitMQ event publishing, CQRS-style command/query split
 - `health-record-service`: health record CRUD and OpenAPI
-- `billing-service`: invoice CRUD, appointment event consumption, invoice event publishing, OpenAPI
+- `billing-service`: invoice CRUD, appointment event consumption, invoice event publishing, OpenAPI, CQRS-style command/query split
 - `auth-service`: user CRUD and OpenAPI
 - `pharmacy-service`: prescription CRUD and OpenAPI
 - `insurance-service`: policy CRUD and OpenAPI
-- `notification-service`: notification CRUD, domain event consumption, OpenAPI
+- `notification-service`: notification CRUD, domain event consumption, OpenAPI, CQRS-style command/query split
 
 Implemented BFFs:
 

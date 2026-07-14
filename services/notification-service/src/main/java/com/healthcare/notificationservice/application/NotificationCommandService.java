@@ -1,7 +1,6 @@
 package com.healthcare.notificationservice.application;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,30 +11,17 @@ import com.healthcare.notificationservice.domain.Notification;
 import com.healthcare.notificationservice.domain.NotificationRepository;
 
 @Service
-public class NotificationService {
+public class NotificationCommandService {
 
     private final NotificationRepository notificationRepository;
 
-    public NotificationService(NotificationRepository notificationRepository) {
+    public NotificationCommandService(NotificationRepository notificationRepository) {
         this.notificationRepository = notificationRepository;
     }
 
     @Transactional
     public NotificationResponse create(NotificationRequest request) {
         return NotificationMapper.toResponse(notificationRepository.save(NotificationMapper.newEntity(request)));
-    }
-
-    @Transactional(readOnly = true)
-    public NotificationResponse getById(String notificationId) {
-        return notificationRepository.findById(notificationId).map(NotificationMapper::toResponse).orElseThrow(() -> new NotificationNotFoundException(notificationId));
-    }
-
-    @Transactional(readOnly = true)
-    public List<NotificationResponse> search(String recipient) {
-        if (recipient == null || recipient.isBlank()) {
-            return notificationRepository.findAll().stream().map(NotificationMapper::toResponse).toList();
-        }
-        return notificationRepository.findByRecipientContainingIgnoreCase(recipient).stream().map(NotificationMapper::toResponse).toList();
     }
 
     @Transactional

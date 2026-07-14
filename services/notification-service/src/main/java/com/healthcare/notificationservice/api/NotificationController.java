@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.healthcare.notificationservice.application.NotificationService;
+import com.healthcare.notificationservice.application.NotificationCommandService;
+import com.healthcare.notificationservice.application.NotificationQueryService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -22,25 +23,27 @@ import jakarta.validation.Valid;
 @Tag(name = "Notifications")
 public class NotificationController {
 
-    private final NotificationService notificationService;
+    private final NotificationCommandService notificationCommandService;
+    private final NotificationQueryService notificationQueryService;
 
-    public NotificationController(NotificationService notificationService) {
-        this.notificationService = notificationService;
+    public NotificationController(NotificationCommandService notificationCommandService, NotificationQueryService notificationQueryService) {
+        this.notificationCommandService = notificationCommandService;
+        this.notificationQueryService = notificationQueryService;
     }
 
     @PostMapping
     public ResponseEntity<NotificationResponse> create(@Valid @RequestBody NotificationRequest request) {
-        NotificationResponse response = notificationService.create(request);
+        NotificationResponse response = notificationCommandService.create(request);
         return ResponseEntity.created(URI.create("/api/v1/notifications/" + response.notificationId())).body(response);
     }
 
     @GetMapping("/{notificationId}")
     public NotificationResponse getById(@PathVariable String notificationId) {
-        return notificationService.getById(notificationId);
+        return notificationQueryService.getById(notificationId);
     }
 
     @GetMapping
     public List<NotificationResponse> search(@RequestParam(required = false) String recipient) {
-        return notificationService.search(recipient);
+        return notificationQueryService.search(recipient);
     }
 }
